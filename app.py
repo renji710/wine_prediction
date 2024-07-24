@@ -84,5 +84,5 @@ input_data_scaled = scaler.transform(input_df)  # Transform DataFrame
 prediction = model.predict(input_data_scaled) 
 
 # --- 13. Menampilkan Hasil ---
-st.subheader('Hasil Prediksi:')
-st.write('Kualitas Wine:', prediction[0])
+st.subheader('Result:')
+st.write('Wine Quality:', prediction[0])
