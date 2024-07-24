@@ -55,7 +55,7 @@ model.fit(X_train, y_train)
 # ... (kode evaluasi opsional) 
 
 # --- 10. Streamlit Interface untuk Prediksi ---
-st.title('Prediksi Kualitas Wine')
+st.title('Wine Quality Prediction')
 
 # Input parameter wine dari pengguna
 fixed_acidity = st.number_input('Fixed Acidity', value=7.0)
