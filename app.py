@@ -15,36 +15,41 @@ df_wineqn = pd.read_csv('winequalityN.csv')
 df_wineqn = df_wineqn.drop('type', axis=1)
 df_wine = pd.concat([df_wineqt, df_wineqn], ignore_index=True)
 
-# 3. Preprocessing Data
+# 2. Preprocessing Data
 # Mengatasi Missing Values (Hapus baris yang kosong)
 df_wine.dropna(inplace=True)  
 
-# 5. Membagi Data
+# 3. Membagi Data
 train_df, test_df = train_test_split(df_wine, test_size=0.2, random_state=42)
 
-# 6. Pisahkan Fitur dan Target
+# 4. Pisahkan Fitur dan Target
 X_train = train_df.drop('quality', axis=1) 
 y_train = train_df['quality']
 X_test = test_df.drop('quality', axis=1)
 y_test = test_df['quality']
 
-# 7. Normalisasi Data
+# 5. Normalisasi Data
 scaler = StandardScaler()
 numerical_features = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
                        'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 
                        'density', 'pH', 'sulphates', 'alcohol']
 
-# 7.a Normalisasi Data Training
+# 5.a Normalisasi Data Training
 X_train[numerical_features] = scaler.fit_transform(X_train[numerical_features])
 
-# 7.b. Normalisasi Data Testing
+# 5.b. Normalisasi Data Testing
 X_test[numerical_features] = scaler.transform(X_test[numerical_features])  
 
-# 8. Membuat dan Melatih Model
+# 6. Membuat dan Melatih Model
 model = LinearRegression()
-model.fit(X_train, y_train) 
+model.fit(X_train, y_train)
 
-# 10. Streamlit Interface untuk Prediksi
+# 7. Evaluasi Model
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+# 8. Streamlit Interface untuk Prediksi
 st.title('Wine Quality Prediction')
 
 # Input parameter wine
@@ -60,7 +65,7 @@ pH = st.number_input('pH', value=3.3)
 sulphates = st.number_input('Sulphates', value=0.6)
 alcohol = st.number_input('Alcohol', value=10.0)
 
-# 11. Preprocessing Input
+# 9. Preprocessing Input
 # Normalisasi data input
 input_data = np.array([fixed_acidity, volatile_acidity, citric_acid, residual_sugar,
                       chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, 
@@ -69,9 +74,13 @@ input_data = np.array([fixed_acidity, volatile_acidity, citric_acid, residual_su
 input_df = pd.DataFrame(input_data, columns=numerical_features)
 input_data_scaled = scaler.transform(input_df)
 
-# 12. Prediksi
+# 10. Prediksi
 prediction = model.predict(input_data_scaled) 
 
-# 13. Menampilkan Hasil
+# 11. Menampilkan Hasil dan Evaluasi
 st.subheader('Result:')
 st.write('Wine Quality:', prediction[0])
+
+st.write("## Evaluasi Model")
+st.write("Mean Squared Error:", mse)
+st.write("R-squared:", r2)
