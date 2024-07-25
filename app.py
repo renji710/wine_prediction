@@ -50,7 +50,7 @@ mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
 # 8. Streamlit Interface untuk Prediksi
-st.title('Wine Quality Prediction')
+st.title('🍷 Wine Quality Prediction')
 
 # Input parameter wine
 fixed_acidity = st.number_input('Fixed Acidity', value=7.0)
@@ -80,7 +80,8 @@ prediction = model.predict(input_data_scaled)
 # 11. Menampilkan Hasil dan Evaluasi
 st.subheader('Result:')
 st.write('Wine Quality:', prediction[0])
+st.write(" ")
 
-st.write("## Evaluasi Model")
+st.write("📊## Evaluasi Model")
 st.write("Mean Squared Error:", mse)
 st.write("R-squared:", r2)
