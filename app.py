@@ -82,6 +82,6 @@ st.subheader('Result:')
 st.write('Wine Quality:', prediction[0])
 st.write(" ")
 
-st.write("## 📊 Evaluasi Model")
+st.write("##📊 Model Evaluation")
 st.write("Mean Squared Error:", mse)
 st.write("R-squared:", r2)
