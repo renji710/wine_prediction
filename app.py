@@ -16,7 +16,7 @@ df_wineqn = df_wineqn.drop('type', axis=1)
 df_wine = pd.concat([df_wineqt, df_wineqn], ignore_index=True)
 
 # 2. Preprocessing Data
-# Mengatasi Missing Values (Hapus baris yang kosong)
+# Mengatasi Missing Values
 df_wine.dropna(inplace=True)  
 
 # 3. Membagi Data
